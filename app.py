@@ -374,7 +374,7 @@ if page == "▶️  YouTube":
 
     col_input, col_btn = st.columns([5, 1])
     with col_input:
-        channel_input = st.text_input("Channel", placeholder="@MrBeast  ·  UCX6OQ...  ·  youtube.com/@channel", label_visibility="collapsed")
+        channel_input = st.text_input("Channel", value="https://www.youtube.com/@MaheshAIPMCommunity", placeholder="@MrBeast  ·  UCX6OQ...  ·  youtube.com/@channel", label_visibility="collapsed")
     with col_btn:
         fetch_yt = st.button("Fetch", type="primary", use_container_width=True, key="yt_fetch")
 
@@ -642,7 +642,7 @@ elif page == "📰  Substack":
 
         url_col, btn_col = st.columns([5, 1])
         with url_col:
-            ss_url = st.text_input("Newsletter URL", placeholder="yournewsletter.substack.com  ·  substack.com/@yourhandle", label_visibility="collapsed")
+            ss_url = st.text_input("Newsletter URL", value="https://substack.com/@myaicommunity", placeholder="yournewsletter.substack.com  ·  substack.com/@yourhandle", label_visibility="collapsed")
         with btn_col:
             fetch_author = st.button("Fetch", type="primary", use_container_width=True, key="ss_author_fetch")
 
