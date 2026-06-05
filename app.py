@@ -36,60 +36,22 @@ st.markdown("""
 [data-testid="stSidebar"] { background: #0d0d0d; border-right: 1px solid #1f1f1f; }
 [data-testid="stTabs"] button { font-weight: 600; font-size: 0.9rem; }
 
-/* ── Sidebar nav cards ── */
-div[data-testid="stSidebar"] .nav-card-wrap { margin-bottom: 5px; }
-div[data-testid="stSidebar"] .nav-card-wrap .stButton > button {
-    background: #111 !important;
-    border: 1px solid #222 !important;
-    border-radius: 11px !important;
-    color: #6b7280 !important;
-    text-align: left !important;
-    font-size: 0.88rem !important;
-    font-weight: 500 !important;
-    padding: 11px 14px !important;
-    transition: all 0.15s ease !important;
-    box-shadow: none !important;
+/* ── Sidebar nav radio ── */
+div[data-testid="stSidebar"] .stRadio > label { display: none; }
+div[data-testid="stSidebar"] .stRadio > div { gap: 3px; }
+div[data-testid="stSidebar"] .stRadio > div > label {
+    padding: 10px 16px; border-radius: 10px; cursor: pointer;
+    width: 100%; font-size: 0.92rem; font-weight: 500;
+    color: #6b7280; border: 1px solid transparent;
+    transition: all 0.15s;
 }
-div[data-testid="stSidebar"] .nav-card-wrap .stButton > button:hover {
-    background: #1a1a1a !important;
-    border-color: #333 !important;
-    color: #e5e7eb !important;
+div[data-testid="stSidebar"] .stRadio > div > label:hover {
+    background: rgba(255,255,255,0.05); color: #e5e7eb;
 }
-/* YouTube — red */
-div[data-testid="stSidebar"] .nav-card-wrap.nav-active-yt .stButton > button {
-    background: rgba(239,68,68,0.18) !important;
-    border-color: rgba(239,68,68,0.55) !important;
-    border-left: 3px solid #ef4444 !important;
-    color: #fca5a5 !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 12px rgba(239,68,68,0.12) !important;
-}
-/* Substack — orange */
-div[data-testid="stSidebar"] .nav-card-wrap.nav-active-ss .stButton > button {
-    background: rgba(255,103,25,0.18) !important;
-    border-color: rgba(255,103,25,0.55) !important;
-    border-left: 3px solid #ff6719 !important;
-    color: #fdba74 !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 12px rgba(255,103,25,0.12) !important;
-}
-/* LinkedIn — blue */
-div[data-testid="stSidebar"] .nav-card-wrap.nav-active-li .stButton > button {
-    background: rgba(10,102,194,0.22) !important;
-    border-color: rgba(10,102,194,0.6) !important;
-    border-left: 3px solid #0a66c2 !important;
-    color: #93c5fd !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 12px rgba(10,102,194,0.14) !important;
-}
-/* Authentication — violet */
-div[data-testid="stSidebar"] .nav-card-wrap.nav-active-auth .stButton > button {
-    background: rgba(139,92,246,0.18) !important;
-    border-color: rgba(139,92,246,0.55) !important;
-    border-left: 3px solid #8b5cf6 !important;
-    color: #c4b5fd !important;
-    font-weight: 700 !important;
-    box-shadow: 0 0 12px rgba(139,92,246,0.12) !important;
+div[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"],
+div[data-testid="stSidebar"] .stRadio > div > label[aria-checked="true"] {
+    background: rgba(99,102,241,0.12); color: #fff;
+    border-color: rgba(99,102,241,0.25);
 }
 
 /* ── Auth section cards ── */
@@ -329,32 +291,23 @@ def _cred(key):
 with st.sidebar:
     st.markdown("""
     <div style="padding:16px 8px 8px;">
-        <div style="font-size:1.05rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.3;">
-            🚀 Marketing SaaS Platform
+        <div style="font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-0.01em;">
+            🎛 Creator Dashboard
         </div>
-        <div style="font-size:0.72rem;color:#6366f1;margin-top:4px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">
-            for Mahesh Maven
+        <div style="font-size:0.75rem;color:#4b5563;margin-top:3px;">
+            Marketing Intelligence Hub
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     st.divider()
 
-    _nav_items = [
-        ("nav_btn_yt",   "▶️  YouTube",        "▶️  YouTube",        "nav-active-yt"),
-        ("nav_btn_ss",   "📰  Substack",        "📰  Substack",        "nav-active-ss"),
-        ("nav_btn_li",   "💼  LinkedIn",        "💼  LinkedIn",        "nav-active-li"),
-        ("nav_btn_auth", "🔐  Authentication",  "🔐  Authentication",  "nav-active-auth"),
-    ]
-    for _btn_key, _btn_label, _page_val, _active_cls in _nav_items:
-        _is_active = st.session_state.get("nav_page") == _page_val
-        _wrap_cls = f"nav-card-wrap {_active_cls}" if _is_active else "nav-card-wrap"
-        st.markdown(f'<div class="{_wrap_cls}">', unsafe_allow_html=True)
-        if st.button(_btn_label, key=_btn_key, use_container_width=True):
-            st.session_state.nav_page = _page_val
-            st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
-    page = st.session_state.get("nav_page", "▶️  YouTube")
+    page = st.radio(
+        "nav",
+        ["▶️  YouTube", "📰  Substack", "💼  LinkedIn", "🔐  Authentication"],
+        label_visibility="collapsed",
+        key="nav_page",
+    )
 
     st.divider()
 
@@ -1338,6 +1291,7 @@ elif page == "🔐  Authentication":
             authorize_endpoint="https://accounts.google.com/o/oauth2/auth",
             token_endpoint="https://oauth2.googleapis.com/token",
             refresh_token_endpoint="https://oauth2.googleapis.com/token",
+            revoke_token_endpoint="https://oauth2.googleapis.com/revoke",
         )
         _result = _oauth2.authorize_button(
             name="Sign in with Google",
