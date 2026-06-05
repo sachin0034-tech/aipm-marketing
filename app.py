@@ -1292,7 +1292,6 @@ elif page == "🔐  Authentication":
             token_endpoint="https://oauth2.googleapis.com/token",
             refresh_token_endpoint="https://oauth2.googleapis.com/token",
             revoke_token_endpoint="https://oauth2.googleapis.com/revoke",
-            revoke_token_auth_method="token",
         )
         _result = _oauth2.authorize_button(
             name="Sign in with Google",
