@@ -34,7 +34,10 @@ def fetch_company_posts(token: str, company_url: str, max_posts: int = 100) -> d
             "page_number": page,
             "sort": "recent",
         })
-        batch = list(client.dataset(run["defaultDatasetId"]).list_items().items)
+        if run is None:
+            break
+        dataset_id = run["defaultDatasetId"] if isinstance(run, dict) else run.default_dataset_id
+        batch = list(client.dataset(dataset_id).list_items().items)
         if not batch:
             break
         all_posts.extend(batch)
