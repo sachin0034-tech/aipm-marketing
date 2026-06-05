@@ -32,9 +32,15 @@ st.set_page_config(
 # ── Global CSS ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-[data-testid="stAppViewContainer"] { background: #0a0a0a; }
-[data-testid="stSidebar"] { background: #0d0d0d; border-right: 1px solid #1f1f1f; }
-[data-testid="stTabs"] button { font-weight: 600; font-size: 0.9rem; }
+/* ── Anthropic Theme — warm cream, terracotta accent ── */
+[data-testid="stAppViewContainer"] { background: #FAF8F5; }
+[data-testid="stSidebar"] { background: #F2EDE6; border-right: 1px solid #E2D9CF; }
+[data-testid="stTabs"] button { font-weight: 600; font-size: 0.9rem; color: #5C5248; }
+[data-testid="stTabs"] button[aria-selected="true"] { color: #C4622A; border-bottom-color: #C4622A; }
+
+/* override Streamlit default white main area */
+[data-testid="stMain"] { background: #FAF8F5; }
+section[data-testid="stSidebar"] > div { background: #F2EDE6; }
 
 /* ── Sidebar nav radio ── */
 div[data-testid="stSidebar"] .stRadio > label { display: none; }
@@ -42,175 +48,193 @@ div[data-testid="stSidebar"] .stRadio > div { gap: 3px; }
 div[data-testid="stSidebar"] .stRadio > div > label {
     padding: 10px 16px; border-radius: 10px; cursor: pointer;
     width: 100%; font-size: 0.92rem; font-weight: 500;
-    color: #6b7280; border: 1px solid transparent;
+    color: #8C7B6E; border: 1px solid transparent;
     transition: all 0.15s;
 }
 div[data-testid="stSidebar"] .stRadio > div > label:hover {
-    background: rgba(255,255,255,0.05); color: #e5e7eb;
+    background: rgba(196,98,42,0.07); color: #3D2B1F;
 }
 div[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"],
 div[data-testid="stSidebar"] .stRadio > div > label[aria-checked="true"] {
-    background: rgba(99,102,241,0.12); color: #fff;
-    border-color: rgba(99,102,241,0.25);
+    background: rgba(196,98,42,0.12); color: #C4622A;
+    border-color: rgba(196,98,42,0.25);
 }
 
 /* ── Auth section cards ── */
 .auth-card {
-    background: #111; border-radius: 14px; padding: 24px;
-    border: 1px solid #1f1f1f; margin-bottom: 20px;
+    background: #FFFFFF; border-radius: 14px; padding: 24px;
+    border: 1px solid #E2D9CF; margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(60,40,20,0.06);
 }
 .auth-card-title {
-    font-size: 1rem; font-weight: 700; color: #fff;
+    font-size: 1rem; font-weight: 700; color: #1C1410;
     margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;
 }
-.auth-status-ok  { color: #10b981; font-size: 0.75rem; font-weight: 600; }
-.auth-status-off { color: #6b7280; font-size: 0.75rem; }
+.auth-status-ok  { color: #2D7D46; font-size: 0.75rem; font-weight: 600; }
+.auth-status-off { color: #A89485; font-size: 0.75rem; }
 
 /* ── Section label ── */
 .section-label {
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #6b7280; margin: 0 0 10px 0;
+    text-transform: uppercase; color: #A89485; margin: 0 0 10px 0;
 }
-.section-label.yt { color: #ff0000; }
-.section-label.ss { color: #FF6719; }
-.section-label.li { color: #0a66c2; }
+.section-label.yt { color: #DC2626; }
+.section-label.ss { color: #C4622A; }
+.section-label.li { color: #0A66C2; }
 
 /* ── Stat card ── */
 .stat-card {
-    background: #111; border-radius: 12px; padding: 18px 20px;
-    border: 1px solid #1f1f1f; text-align: center; height: 100%;
+    background: #FFFFFF; border-radius: 12px; padding: 18px 20px;
+    border: 1px solid #E2D9CF; text-align: center; height: 100%;
+    box-shadow: 0 1px 4px rgba(60,40,20,0.06);
 }
 .stat-value {
-    font-size: 1.7rem; font-weight: 800; color: #fff;
+    font-size: 1.7rem; font-weight: 800; color: #C4622A;
     line-height: 1.1; letter-spacing: -0.02em;
 }
 .stat-label {
-    font-size: 0.72rem; color: #6b7280; margin-top: 5px;
+    font-size: 0.72rem; color: #A89485; margin-top: 5px;
     font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
 }
 
 /* ── YouTube channel card ── */
 .yt-card {
-    background: linear-gradient(135deg, #111827 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, #FFF8F5 0%, #FFF3EE 100%);
     border-radius: 16px; padding: 24px 28px; display: flex;
-    align-items: center; gap: 22px; border: 1px solid #1f2937; margin-bottom: 8px;
+    align-items: center; gap: 22px;
+    border: 1px solid #FECDBA; margin-bottom: 8px;
+    box-shadow: 0 2px 12px rgba(220,38,38,0.06);
 }
 .yt-avatar {
     width: 86px; height: 86px; border-radius: 50%;
-    border: 3px solid #ff0000; object-fit: cover; flex-shrink: 0;
+    border: 3px solid #DC2626; object-fit: cover; flex-shrink: 0;
 }
-.yt-channel-name { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; }
-.yt-channel-sub  { color: #6b7280; font-size: 0.82rem; margin: 0 0 14px 0; }
+.yt-channel-name { font-size: 1.4rem; font-weight: 700; color: #1C1410; margin: 0 0 4px 0; }
+.yt-channel-sub  { color: #8C7B6E; font-size: 0.82rem; margin: 0 0 14px 0; }
 .yt-pill {
-    display: inline-block; background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-    padding: 4px 13px; font-size: 0.79rem; color: #d1d5db;
+    display: inline-block; background: rgba(196,98,42,0.08);
+    border: 1px solid rgba(196,98,42,0.18); border-radius: 20px;
+    padding: 4px 13px; font-size: 0.79rem; color: #C4622A;
     margin-right: 7px; margin-bottom: 4px;
 }
 
 /* ── Video card ── */
 .vid-card {
-    background: #111; border-radius: 10px; overflow: hidden;
-    border: 1px solid #1f1f1f; height: 100%;
+    background: #FFFFFF; border-radius: 10px; overflow: hidden;
+    border: 1px solid #E2D9CF; height: 100%;
+    box-shadow: 0 1px 4px rgba(60,40,20,0.05);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.vid-card:hover {
+    border-color: #C4622A;
+    box-shadow: 0 4px 16px rgba(196,98,42,0.1);
 }
 .vid-thumb { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
 .vid-duration {
     position: relative; margin-top: -24px; float: right;
-    background: rgba(0,0,0,0.85); color: #fff;
+    background: rgba(28,20,16,0.82); color: #fff;
     font-size: 0.71rem; padding: 2px 6px; border-radius: 4px;
     margin-right: 6px; font-weight: 700;
 }
 .vid-body { padding: 10px 12px 14px; clear: both; }
 .vid-title {
-    font-size: 0.87rem; font-weight: 600; color: #fff; margin: 0 0 7px 0;
+    font-size: 0.87rem; font-weight: 600; color: #1C1410; margin: 0 0 7px 0;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; line-height: 1.35; min-height: 2.4em;
 }
-.vid-stats { font-size: 0.75rem; color: #6b7280; }
+.vid-stats { font-size: 0.75rem; color: #A89485; }
 .vid-stats span { margin-right: 10px; }
 
 /* ── Substack cards ── */
 .ss-card {
-    background: #111; border-radius: 14px; padding: 18px 18px 14px;
-    border: 1px solid #1f1f1f; display: flex; gap: 14px; margin-bottom: 12px;
-    position: relative; text-decoration: none !important; transition: border-color 0.15s;
+    background: #FFFFFF; border-radius: 14px; padding: 18px 18px 14px;
+    border: 1px solid #E2D9CF; display: flex; gap: 14px; margin-bottom: 12px;
+    position: relative; text-decoration: none !important;
+    box-shadow: 0 1px 4px rgba(60,40,20,0.05);
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
-.ss-card:hover { border-color: #FF6719; }
+.ss-card:hover {
+    border-color: #C4622A;
+    box-shadow: 0 4px 16px rgba(196,98,42,0.1);
+}
 .ss-rank {
     position: absolute; top: 14px; right: 14px;
-    background: rgba(255,103,25,0.12); border: 1px solid rgba(255,103,25,0.25);
-    color: #FF6719; font-size: 0.72rem; font-weight: 800;
+    background: rgba(196,98,42,0.1); border: 1px solid rgba(196,98,42,0.22);
+    color: #C4622A; font-size: 0.72rem; font-weight: 800;
     padding: 2px 9px; border-radius: 20px;
 }
 .ss-logo {
     width: 54px; height: 54px; border-radius: 10px; object-fit: cover;
-    flex-shrink: 0; background: #1f1f1f; border: 1px solid #2a2a2a;
+    flex-shrink: 0; background: #F2EDE6; border: 1px solid #E2D9CF;
 }
 .ss-logo-placeholder {
     width: 54px; height: 54px; border-radius: 10px;
-    background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+    background: linear-gradient(135deg, #F2EDE6, #E8DDD4);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; font-size: 1.4rem;
 }
 .ss-body { flex: 1; min-width: 0; padding-right: 36px; }
 .ss-name {
-    font-size: 0.93rem; font-weight: 700; color: #fff; margin: 0 0 2px 0;
+    font-size: 0.93rem; font-weight: 700; color: #1C1410; margin: 0 0 2px 0;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.ss-author { font-size: 0.76rem; color: #6b7280; margin: 0 0 7px 0; }
+.ss-author { font-size: 0.76rem; color: #8C7B6E; margin: 0 0 7px 0; }
 .ss-desc {
-    font-size: 0.79rem; color: #9ca3af; margin: 0 0 10px 0;
+    font-size: 0.79rem; color: #5C5248; margin: 0 0 10px 0;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; line-height: 1.45; min-height: 2.3em;
 }
 .ss-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .ss-badge-paid {
-    background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25);
-    color: #10b981; font-size: 0.65rem; font-weight: 800;
+    background: rgba(45,125,70,0.1); border: 1px solid rgba(45,125,70,0.22);
+    color: #2D7D46; font-size: 0.65rem; font-weight: 800;
     padding: 2px 8px; border-radius: 20px; text-transform: uppercase;
 }
 .ss-badge-rising {
-    background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.25);
-    color: #fbbf24; font-size: 0.65rem; font-weight: 800;
+    background: rgba(180,120,20,0.1); border: 1px solid rgba(180,120,20,0.22);
+    color: #A0720E; font-size: 0.65rem; font-weight: 800;
     padding: 2px 8px; border-radius: 20px; text-transform: uppercase;
 }
 .ss-badge-cat {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-    color: #9ca3af; font-size: 0.65rem; padding: 2px 8px; border-radius: 20px;
+    background: rgba(140,123,110,0.1); border: 1px solid #E2D9CF;
+    color: #8C7B6E; font-size: 0.65rem; padding: 2px 8px; border-radius: 20px;
 }
-.ss-subs { font-size: 0.78rem; color: #FF6719; font-weight: 700; margin-left: auto; }
+.ss-subs { font-size: 0.78rem; color: #C4622A; font-weight: 700; margin-left: auto; }
 
 /* ── LinkedIn ── */
 .li-card {
-    background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%);
+    background: linear-gradient(135deg, #F0F7FF 0%, #EBF4FF 100%);
     border-radius: 16px; padding: 24px 28px; display: flex;
-    align-items: center; gap: 22px; border: 1px solid #1d4ed8; margin-bottom: 8px;
+    align-items: center; gap: 22px;
+    border: 1px solid #BFDBFE; margin-bottom: 8px;
+    box-shadow: 0 2px 12px rgba(10,102,194,0.06);
 }
 .li-logo {
     width: 86px; height: 86px; border-radius: 12px;
-    border: 2px solid #0a66c2; object-fit: cover; flex-shrink: 0;
+    border: 2px solid #0A66C2; object-fit: cover; flex-shrink: 0;
 }
-.li-name { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0 0 4px 0; }
-.li-meta { color: #6b7280; font-size: 0.82rem; margin: 0 0 14px 0; }
+.li-name { font-size: 1.4rem; font-weight: 700; color: #1C1410; margin: 0 0 4px 0; }
+.li-meta { color: #8C7B6E; font-size: 0.82rem; margin: 0 0 14px 0; }
 .li-pill {
-    display: inline-block; background: rgba(10,102,194,0.15);
-    border: 1px solid rgba(10,102,194,0.35); border-radius: 20px;
-    padding: 4px 13px; font-size: 0.79rem; color: #60a5fa;
+    display: inline-block; background: rgba(10,102,194,0.08);
+    border: 1px solid rgba(10,102,194,0.2); border-radius: 20px;
+    padding: 4px 13px; font-size: 0.79rem; color: #0A66C2;
     margin-right: 7px; margin-bottom: 4px;
 }
 .li-post-card {
-    background: #0d1117; border-radius: 12px; padding: 16px;
-    border: 1px solid #1a2535; margin-bottom: 10px;
-    border-left: 3px solid #0a66c2;
+    background: #FFFFFF; border-radius: 12px; padding: 16px;
+    border: 1px solid #E2D9CF; margin-bottom: 10px;
+    border-left: 3px solid #0A66C2;
+    box-shadow: 0 1px 4px rgba(60,40,20,0.05);
 }
 .li-post-text {
-    font-size: 0.83rem; color: #d1d5db; line-height: 1.5; margin: 0 0 12px 0;
+    font-size: 0.83rem; color: #3D2B1F; line-height: 1.5; margin: 0 0 12px 0;
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .li-post-footer { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.li-stat { font-size: 0.72rem; color: #6b7280; background: rgba(255,255,255,0.04); padding: 3px 9px; border-radius: 10px; }
-.li-stat-hi { color: #60a5fa; font-weight: 600; }
-.li-date { font-size: 0.72rem; color: #4b5563; margin-left: auto; }
+.li-stat { font-size: 0.72rem; color: #8C7B6E; background: #F2EDE6; padding: 3px 9px; border-radius: 10px; }
+.li-stat-hi { color: #0A66C2; font-weight: 600; }
+.li-date { font-size: 0.72rem; color: #B8A99A; margin-left: auto; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -359,7 +383,7 @@ def _sf_ready():
 #  YOUTUBE PAGE
 # ══════════════════════════════════════════════════════════════════════════════
 if page == "▶️  YouTube":
-    st.markdown('<h2 style="color:#fff;font-weight:800;margin-bottom:4px;">▶️ YouTube</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color:#1C1410;font-weight:800;margin-bottom:4px;">▶️ YouTube</h2>', unsafe_allow_html=True)
     st.caption("Channel stats, analytics, and recent videos.")
     st.divider()
 
@@ -488,7 +512,7 @@ if page == "▶️  YouTube":
                         fig.update_traces(texttemplate="%{text:,}", textposition="outside", textfont_size=11)
                     else:
                         fig = px.area(df, x=x, y=y, labels={x:"",y:label}, color_discrete_sequence=[color])
-                    fig.update_layout(margin=dict(t=30,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", showlegend=False)
+                    fig.update_layout(margin=dict(t=30,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", showlegend=False)
                     fig.update_xaxes(showgrid=False, tickfont_color="#6b7280")
                     fig.update_yaxes(gridcolor="#1a1a1a", tickfont_color="#6b7280")
                     return fig
@@ -602,8 +626,8 @@ if page == "▶️  YouTube":
                         color_discrete_map={"Own":"#ff0000","Competitor":"#6366f1"},
                         title="Subscribers", text="Subscribers")
                     fig_subs.update_traces(texttemplate="%{text:,}", textposition="outside")
-                    fig_subs.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                        paper_bgcolor="#0a0a0a", font_color="#9ca3af", showlegend=True)
+                    fig_subs.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                        paper_bgcolor="#FAF8F5", font_color="#9ca3af", showlegend=True)
                     fig_subs.update_xaxes(showgrid=False)
                     fig_subs.update_yaxes(gridcolor="#1a1a1a")
                     st.plotly_chart(fig_subs, use_container_width=True)
@@ -613,8 +637,8 @@ if page == "▶️  YouTube":
                         color_discrete_map={"Own":"#ff0000","Competitor":"#6366f1"},
                         title="Total Views", text="Total Views")
                     fig_views.update_traces(texttemplate="%{text:,}", textposition="outside")
-                    fig_views.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                        paper_bgcolor="#0a0a0a", font_color="#9ca3af", showlegend=True)
+                    fig_views.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                        paper_bgcolor="#FAF8F5", font_color="#9ca3af", showlegend=True)
                     fig_views.update_xaxes(showgrid=False)
                     fig_views.update_yaxes(gridcolor="#1a1a1a")
                     st.plotly_chart(fig_views, use_container_width=True)
@@ -624,7 +648,7 @@ if page == "▶️  YouTube":
 #  SUBSTACK PAGE
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "📰  Substack":
-    st.markdown('<h2 style="color:#fff;font-weight:800;margin-bottom:4px;">📰 Substack</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color:#1C1410;font-weight:800;margin-bottom:4px;">📰 Substack</h2>', unsafe_allow_html=True)
     st.caption("Your newsletter analytics and the global leaderboard.")
     st.divider()
 
@@ -725,7 +749,7 @@ elif page == "📰  Substack":
                     labels={"date":"","value":"Count","variable":""},
                     color_discrete_map={"likes":"#FF6719","comments":"#6366f1","restacks":"#10b981"})
                 fig_eng.update_traces(mode="lines+markers", marker_size=5)
-                fig_eng.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", legend=dict(bgcolor="#111", bordercolor="#1f1f1f", borderwidth=1))
+                fig_eng.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", legend=dict(bgcolor="#111", bordercolor="#1f1f1f", borderwidth=1))
                 fig_eng.update_xaxes(showgrid=False, tickfont_color="#6b7280")
                 fig_eng.update_yaxes(gridcolor="#1a1a1a", tickfont_color="#6b7280")
                 st.plotly_chart(fig_eng, use_container_width=True)
@@ -735,7 +759,7 @@ elif page == "📰  Substack":
                 fig_pie = px.pie(pd.DataFrame({"Audience":["Free","Paid"],"Count":[free_count,paid_count]}),
                     names="Audience", values="Count", hole=0.5,
                     color_discrete_map={"Free":"#6366f1","Paid":"#FF6719"})
-                fig_pie.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af")
+                fig_pie.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af")
                 fig_pie.update_traces(textfont_color="#fff")
                 st.plotly_chart(fig_pie, use_container_width=True)
 
@@ -744,7 +768,7 @@ elif page == "📰  Substack":
             fig_freq = px.bar(df_freq, x="month", y="posts", labels={"month":"","posts":"Posts Published"},
                 color_discrete_sequence=["#FF6719"], text="posts")
             fig_freq.update_traces(textposition="outside", textfont_size=10)
-            fig_freq.update_layout(margin=dict(t=20,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", showlegend=False)
+            fig_freq.update_layout(margin=dict(t=20,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", showlegend=False)
             fig_freq.update_xaxes(showgrid=False, tickfont_color="#6b7280")
             fig_freq.update_yaxes(gridcolor="#1a1a1a", tickfont_color="#6b7280")
             st.plotly_chart(fig_freq, use_container_width=True)
@@ -856,8 +880,8 @@ elif page == "📰  Substack":
                             color_discrete_map={"Own":"#FF6719","Competitor":"#6366f1"},
                             title="Avg Likes per Post", text="Avg Likes/Post")
                         fig_likes.update_traces(texttemplate="%{text:.1f}", textposition="outside")
-                        fig_likes.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                            paper_bgcolor="#0a0a0a", font_color="#9ca3af")
+                        fig_likes.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                            paper_bgcolor="#FAF8F5", font_color="#9ca3af")
                         fig_likes.update_xaxes(showgrid=False)
                         fig_likes.update_yaxes(gridcolor="#1a1a1a")
                         st.plotly_chart(fig_likes, use_container_width=True)
@@ -867,8 +891,8 @@ elif page == "📰  Substack":
                             color_discrete_map={"Own":"#FF6719","Competitor":"#6366f1"},
                             title="Total Posts", text="Total Posts")
                         fig_posts.update_traces(texttemplate="%{text:d}", textposition="outside")
-                        fig_posts.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                            paper_bgcolor="#0a0a0a", font_color="#9ca3af")
+                        fig_posts.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                            paper_bgcolor="#FAF8F5", font_color="#9ca3af")
                         fig_posts.update_xaxes(showgrid=False)
                         fig_posts.update_yaxes(gridcolor="#1a1a1a")
                         st.plotly_chart(fig_posts, use_container_width=True)
@@ -945,7 +969,7 @@ elif page == "📰  Substack":
                         color="board_type", color_discrete_map={"paid":"#10b981","rising":"#fbbf24"},
                         labels={"subscribers":"Subscribers","name":"","board_type":"Type"}, hover_data=["author","category"])
                     fig.update_layout(height=max(400,len(top)*32), margin=dict(t=20,b=20,l=20,r=20),
-                        plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", yaxis={"categoryorder":"total ascending"})
+                        plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", yaxis={"categoryorder":"total ascending"})
                     fig.update_xaxes(showgrid=False)
                     fig.update_yaxes(tickfont_color="#d1d5db", tickfont_size=11)
                     st.plotly_chart(fig, use_container_width=True)
@@ -964,7 +988,7 @@ elif page == "📰  Substack":
 #  LINKEDIN PAGE
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "💼  LinkedIn":
-    st.markdown('<h2 style="color:#fff;font-weight:800;margin-bottom:4px;">💼 LinkedIn</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color:#1C1410;font-weight:800;margin-bottom:4px;">💼 LinkedIn</h2>', unsafe_allow_html=True)
     st.caption("Company page posts, engagement trends, and audience insights.")
     st.divider()
 
@@ -1056,7 +1080,7 @@ elif page == "💼  LinkedIn":
                 labels={"date":"","value":"Count","variable":""},
                 color_discrete_map={"reactions":"#0a66c2","comments":"#60a5fa","reposts":"#10b981"})
             fig_eng.update_traces(mode="lines+markers", marker_size=4)
-            fig_eng.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", legend=dict(bgcolor="#111", bordercolor="#1a2535", borderwidth=1))
+            fig_eng.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", legend=dict(bgcolor="#111", bordercolor="#1a2535", borderwidth=1))
             fig_eng.update_xaxes(showgrid=False, tickfont_color="#6b7280")
             fig_eng.update_yaxes(gridcolor="#1a1a1a", tickfont_color="#6b7280")
             st.plotly_chart(fig_eng, use_container_width=True)
@@ -1066,7 +1090,7 @@ elif page == "💼  LinkedIn":
             if rx:
                 fig_rx = px.pie(names=list(rx.keys()), values=list(rx.values()), hole=0.5,
                     color_discrete_sequence=["#0a66c2","#10b981","#f59e0b","#ef4444","#8b5cf6"])
-                fig_rx.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af",
+                fig_rx.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af",
                     legend=dict(bgcolor="#111",bordercolor="#1a2535",borderwidth=1), title=dict(text="Reaction Types",font_color="#9ca3af",x=0.5))
                 fig_rx.update_traces(textfont_color="#fff")
                 st.plotly_chart(fig_rx, use_container_width=True)
@@ -1078,7 +1102,7 @@ elif page == "💼  LinkedIn":
             if not df_freq.empty:
                 fig_freq = px.bar(df_freq, x="month", y="posts", labels={"month":"","posts":"Posts"}, color_discrete_sequence=["#0a66c2"], text="posts")
                 fig_freq.update_traces(textposition="outside", textfont_size=10)
-                fig_freq.update_layout(margin=dict(t=20,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", showlegend=False)
+                fig_freq.update_layout(margin=dict(t=20,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", showlegend=False)
                 fig_freq.update_xaxes(showgrid=False, tickfont_color="#6b7280")
                 fig_freq.update_yaxes(gridcolor="#1a1a1a", tickfont_color="#6b7280")
                 st.plotly_chart(fig_freq, use_container_width=True)
@@ -1089,7 +1113,7 @@ elif page == "💼  LinkedIn":
             type_counts.columns = ["type","count"]
             fig_type = px.pie(type_counts, names="type", values="count", hole=0.5,
                 color_discrete_sequence=["#0a66c2","#3b82f6","#60a5fa","#93c5fd"])
-            fig_type.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#0a0a0a", paper_bgcolor="#0a0a0a", font_color="#9ca3af", legend=dict(bgcolor="#111",bordercolor="#1a2535",borderwidth=1))
+            fig_type.update_layout(margin=dict(t=10,b=10), plot_bgcolor="#FAF8F5", paper_bgcolor="#FAF8F5", font_color="#9ca3af", legend=dict(bgcolor="#111",bordercolor="#1a2535",borderwidth=1))
             fig_type.update_traces(textfont_color="#fff")
             st.plotly_chart(fig_type, use_container_width=True)
 
@@ -1202,8 +1226,8 @@ elif page == "💼  LinkedIn":
                         color_discrete_map={"Own":"#0a66c2","Competitor":"#6366f1"},
                         title="Followers", text="Followers")
                     fig_fol.update_traces(texttemplate="%{text:,}", textposition="outside")
-                    fig_fol.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                        paper_bgcolor="#0a0a0a", font_color="#9ca3af")
+                    fig_fol.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                        paper_bgcolor="#FAF8F5", font_color="#9ca3af")
                     fig_fol.update_xaxes(showgrid=False)
                     fig_fol.update_yaxes(gridcolor="#1a1a1a")
                     st.plotly_chart(fig_fol, use_container_width=True)
@@ -1213,8 +1237,8 @@ elif page == "💼  LinkedIn":
                         color_discrete_map={"Own":"#0a66c2","Competitor":"#6366f1"},
                         title="Avg Engagement Rate (%)", text="Avg Eng. Rate")
                     fig_eng.update_traces(texttemplate="%{text:.3f}%", textposition="outside")
-                    fig_eng.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#0a0a0a",
-                        paper_bgcolor="#0a0a0a", font_color="#9ca3af")
+                    fig_eng.update_layout(margin=dict(t=40,b=10), plot_bgcolor="#FAF8F5",
+                        paper_bgcolor="#FAF8F5", font_color="#9ca3af")
                     fig_eng.update_xaxes(showgrid=False)
                     fig_eng.update_yaxes(gridcolor="#1a1a1a")
                     st.plotly_chart(fig_eng, use_container_width=True)
@@ -1224,7 +1248,7 @@ elif page == "💼  LinkedIn":
 #  AUTHENTICATION PAGE
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "🔐  Authentication":
-    st.markdown('<h2 style="color:#fff;font-weight:800;margin-bottom:4px;">🔐 Authentication</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color:#1C1410;font-weight:800;margin-bottom:4px;">🔐 Authentication</h2>', unsafe_allow_html=True)
     st.caption("All credentials are stored in session state and sent only to their respective APIs.")
     st.divider()
 
